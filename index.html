@@ -11,10 +11,10 @@
   <style>
     :root {
       --bg-dark: #0a0a0a;
-      --card-bg: #1a1a1a;
       --text-main: #ffffff;
       --accent: #ff7eb3;
-      /* মিষ্টি পিঙ্ক গ্রাডিয়েন্ট */
+      /* রঙিন মিশ্রণের গ্রাডিয়েন্ট বাটন */
+      --btn-rainbow: linear-gradient(90deg, #ff0000, #ff7f00, #ffeb3b, #00e676, #00b0ff, #aa00ff);
       --btn-misti: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
     }
     body { font-family: 'Segoe UI', sans-serif; background: var(--bg-dark); color: var(--text-main); margin: 0; padding: 0; }
@@ -25,35 +25,26 @@
     .content-section { padding: 15px; padding-bottom: 100px; display: none; }
     .content-section.active { display: block; }
 
-    /* Home Card */
-    .home-card { background: var(--card-bg); padding: 30px 20px; border-radius: 15px; text-align: center; border: 1px solid #333; margin-top: 50px; }
-    .ref-link { background: #000; padding: 15px; border-radius: 10px; font-size: 13px; color: var(--accent); word-break: break-all; margin-bottom: 20px; display: block; border: 1px dashed var(--accent); }
+    .home-card { background: #1a1a1a; padding: 30px 20px; border-radius: 15px; text-align: center; border: 1px solid #333; margin-top: 20px; }
+    .ref-link { background: #000; padding: 15px; border-radius: 10px; font-size: 13px; color: var(--accent); word-break: break-all; margin-bottom: 15px; display: block; border: 1px dashed var(--accent); }
 
-    /* Task Styles - ব্যাকগ্রাউন্ড কালো করা হয়েছে */
     .task-card { background: var(--bg-dark); padding: 15px; border-radius: 12px; border: 1px solid #333; margin-bottom: 15px; text-align: center; }
     .bonus-group { display: flex; gap: 8px; margin: 15px 0; }
-    .bonus-btn { flex: 1; padding: 12px; border-radius: 8px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer; font-size: 12px; }
+    .bonus-btn { flex: 1; padding: 12px; border-radius: 8px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer; }
     .social-link { display: block; background: #222; padding: 14px; border-radius: 10px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid #333; font-weight: bold; text-align: center; }
 
-    /* Rules - ব্যাকগ্রাউন্ড কালো করা হয়েছে */
-    .rules-box { background: var(--bg-dark); padding: 20px; border-radius: 15px; line-height: 1.8; font-size: 14px; text-align: left; border: 1px solid #333; color: var(--text-main); }
+    .rules-box { background: var(--bg-dark); padding: 20px; border-radius: 15px; line-height: 1.8; font-size: 14px; text-align: left; border: 1px solid #333; }
     .rules-box h3 { text-align: center; color: var(--accent); margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-    .rules-box b { color: var(--accent); }
 
-    /* Withdraw Form */
-    .input-group { margin-bottom: 15px; text-align: left; }
-    .input-group label { display: block; margin-bottom: 8px; font-size: 13px; color: #aaa; }
-    .input-field { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box; outline: none; }
-    .input-field::placeholder { color: #555; }
+    .input-field { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box; outline: none; margin-bottom: 15px; }
 
-    /* Nav Bar */
     .nav-bar { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #222; }
     .nav-item { text-align: center; color: #666; font-size: 11px; flex: 1; cursor: pointer; }
     .nav-item.active { color: var(--accent); }
     .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
     
-    /* মিষ্টি রঙের বাটন */
-    .misti-btn { background: var(--btn-misti); color: white; border: none; padding: 16px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; }
+    /* রঙিন বাটন স্টাইল */
+    .rainbow-btn { background: var(--btn-rainbow); color: white; border: none; padding: 16px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; font-size: 15px; margin-bottom: 10px; text-shadow: 1px 1px 2px #000; }
   </style>
 </head>
 <body>
@@ -61,7 +52,7 @@
   <div class="header">
     <div class="profile-pic" id="p-img">U</div>
     <div>
-      <h4 style="margin:0;"><span id="u-name">User</span> <i class="fas fa-check-circle" style="color:var(--accent);"></i></h4>
+      <h4 style="margin:0;"><span id="full-name">User Name</span> <i class="fas fa-check-circle" style="color:var(--accent);"></i></h4>
       <p style="margin:0; font-size: 13px; color: var(--accent);">ব্যালেন্স: <span id="u-bal">0</span> টাকা</p>
     </div>
   </div>
@@ -70,13 +61,14 @@
     <div class="home-card">
         <h3 style="color: var(--accent);">আপনার রেফার লিংক</h3>
         <span class="ref-link" id="my-ref-link">Loading...</span>
-        <button class="misti-btn" onclick="copyRef()"><i class="fas fa-share-alt"></i> বন্ধুদের সাথে শেয়ার করুন</button>
+        <button class="rainbow-btn" onclick="copyRef()"><i class="fas fa-copy"></i> কপি করুন</button>
+        <button class="rainbow-btn" onclick="shareApp()"><i class="fas fa-share-alt"></i> বন্ধুদের সাথে শেয়ার করুন</button>
     </div>
   </div>
 
   <div id="tasks" class="content-section">
     <div class="task-card">
-        <button class="misti-btn" onclick="watchAd()"><i class="fas fa-play-circle"></i> বিজ্ঞাপন দেখে আয় করুন (৫ টাকা)</button>
+        <button class="rainbow-btn" onclick="watchAd()"><i class="fas fa-play-circle"></i> বিজ্ঞাপন দেখে আয় করুন (৫ টাকা)</button>
     </div>
     
     <div class="task-card">
@@ -91,9 +83,9 @@
 
     <div class="task-card" style="background:transparent; border:none;">
         <h4 style="color:#aaa;">🔗 আমাদের চ্যানেলসমূহ</h4>
-        <a href="https://t.me/KR_Khalid_Tech_Bangla" class="social-link"><i class="fab fa-telegram"></i> টেলিগ্রাম চ্যানেল</a>
-        <a href="https://www.facebook.com/profile.php?id=61586764666017" class="social-link"><i class="fab fa-facebook"></i> ফেসবুক পেজ</a>
-        <a href="https://tiktok.com/@krkhalidtechbangla560" class="social-link"><i class="fab fa-tiktok"></i> টিকটক আইডি</a>
+        <a href="https://t.me/krtakaincomeofficialchannel" class="social-link" target="_blank"><i class="fab fa-telegram"></i> টেলিগ্রাম চ্যানেল</a>
+        <a href="https://www.facebook.com/profile.php?id=61586764666017" class="social-link" target="_blank"><i class="fab fa-facebook"></i> ফেসবুক পেজ</a>
+        <a href="https://tiktok.com/@krkhalidtechbangla560" class="social-link" target="_blank"><i class="fab fa-tiktok"></i> টিকটক আইডি</a>
     </div>
   </div>
 
@@ -101,13 +93,13 @@
     <div class="rules-box">
         <h3>📜 KR TAKA INCOME - কাজের সম্পূর্ণ নিয়মাবলী 📜</h3>
         <p>আমাদের প্ল্যাটফর্মে সততার সাথে কাজ করে নিশ্চিত পেমেন্ট পেতে নিচের নিয়মগুলো অবশ্যই মেনে চলতে হবে:</p>
-        <p><b>১. 🎁 জয়েনিং বোনাস (Joining Bonus)</b><br>বটে প্রথমবার জয়েন করার সাথে সাথে আপনি ৩০ টাকা স্বাগতম বোনাস পাবেন। এই টাকা সরাসরি আপনার মূল ব্যালেন্সে যোগ হবে。</p>
-        <p><b>২. 👥 রেফারেল সিস্টেম (Referral Program)</b><br>আপনার ব্যক্তিগত রেফারেল লিঙ্ক ব্যবহার করে কাউকে জয়েন করালে আপনি প্রতি রেফারে পাবেন ২৫ টাকা।<br>সতর্কতা: রেফার করা ইউজারকে অবশ্যই সক্রিয় হতে হবে। একই ফোনে একাধিক আইডি খুলে রেফার করলে আপনার আইডি চিরতরে ব্যান (Block) করা হবে。</p>
-        <p><b>৩. 📺 বিজ্ঞাপন থেকে আয় (Ad View Income)</b><br>প্রতিটি ভিডিও বিজ্ঞাপন সফলভাবে দেখার জন্য আপনি পাবেন ৫ টাকা।<br>প্রতিদিন একটি নির্দিষ্ট সংখ্যক বিজ্ঞাপন দেখার সুযোগ পাবেন। নিয়ম মেনে সবগুলো বিজ্ঞাপন দেখলে আপনার আয় দ্রুত বাড়বে。</p>
-        <p><b>৪. 🔒 টাস্ক ভেরিফিকেশন (Mandatory Tasks)</b><br>ইনকাম শুরু করতে এবং উইথড্র বাটন সচল করতে আমাদের ফেসবুক পেজ, টিকটক আইডি এবং টেলিগ্রাম চ্যানেল ফলো করা বাধ্যতামূলক।<br>যদি কেউ ফলো না করে বা ফলো করার পর আবার আনফলো করে দেয়, তবে তার পেমেন্ট বাতিল করা হতে পারে。</p>
-        <p><b>৫. 💳 টাকা উত্তোলন (Withdrawal Rules)</b><br>সর্বনিম্ন ব্যালেন্স: আপনার অ্যাকাউন্টে কমপক্ষে ১৫০০ টাকা হতে হবে।<br>রেফার শর্ত: টাকা তোলার জন্য আপনাকে কমপক্ষে ২৫ জন ইউজারকে রেফার করতে হবে।<br>پেমেন্ট মাধ্যম: আপনি বিকাশ বা নগদ-এর মাধ্যমে টাকা নিতে পারবেন।<br>সময়সীমা: উইথড্র রিকোয়েস্ট দেওয়ার ২৪ থেকে ৭২ ঘণ্টার মধ্যে আপনার পেমেন্ট সম্পন্ন করা হবে。</p>
-        <p><b>৬. 🚫 নিষেধাজ্ঞা (Prohibitions)</b><br>কোনো প্রকার ভিপিএন (VPN) ব্যবহার করে কাজ করা যাবে না।<br>বটের সাথে কোনো প্রকার স্প্যামিং বা অবৈধ উপায়ে টাকা বাড়ানোর চেষ্টা করলে অ্যাকাউন্ট ডিলিট করে দেওয়া হবে。</p>
-        <p>মনে রাখবেন: আপনার শ্রম এবং সততা আমাদের কাছে মূল্যবান। সঠিক নিয়মে কাজ করুন এবং ঘরে বসেই আয় করুন。</p>
+        <p><b>১. 🎁 জয়েনিং বোনাস (Joining Bonus)</b><br>বটে প্রথমবার জয়েন করার সাথে সাথে আপনি ৩০ টাকা স্বাগতম বোনাস পাবেন। এই টাকা সরাসরি আপনার মূল ব্যালেন্সে যোগ হবে।</p>
+        <p><b>২. 👥 রেফারেল সিস্টেম (Referral Program)</b><br>আপনার ব্যক্তিগত রেফারেল লিঙ্ক ব্যবহার করে কাউকে জয়েন করালে আপনি প্রতি রেফারে পাবেন ২৫ টাকা।<br>সতর্কতা: রেফার করা ইউজারকে অবশ্যই সক্রিয় হতে হবে। একই ফোনে একাধিক আইডি খুলে রেফার করলে আপনার আইডি চিরতরে ব্যান (Block) করা হবে।</p>
+        <p><b>৩. 📺 বিজ্ঞাপন থেকে আয় (Ad View Income)</b><br>প্রতিটি ভিডিও বিজ্ঞাপন সফলভাবে দেখার জন্য আপনি পাবেন ৫ টাকা।<br>প্রতিদিন একটি নির্দিষ্ট সংখ্যক বিজ্ঞাপন দেখার সুযোগ পাবেন। নিয়ম মেনে সবগুলো বিজ্ঞাপন দেখলে আপনার আয় দ্রুত বাড়বে।</p>
+        <p><b>৪. 🔒 টাস্ক ভেরিফিকেশন (Mandatory Tasks)</b><br>ইনকাম শুরু করতে এবং উইথড্র বাটন সচল করতে আমাদের ফেসবুক পেজ, টিকটক আইডি এবং টেলিগ্রাম চ্যানেল ফলো করা বাধ্যতামূলক।<br>যদি কেউ ফলো না করে বা ফলো করার পর আবার আনফলো করে দেয়, তবে তার পেমেন্ট বাতিল করা হতে পারে।</p>
+        <p><b>৫. 💳 টাকা উত্তোলন (Withdrawal Rules)</b><br>সর্বনিম্ন ব্যালেন্স: আপনার অ্যাকাউন্টে কমপক্ষে ১৫০০ টাকা হতে হবে।<br>রেফার শর্ত: টাকা তোলার জন্য আপনাকে কমপক্ষে ২৫ জন ইউজারকে রেফার করতে হবে।<br>পেমেন্ট মাধ্যম: আপনি বিকাশ বা নগদ-এর মাধ্যমে টাকা নিতে পারবেন।<br>সময়সীমা: উইথড্র রিকোয়েস্ট দেওয়ার ২৪ থেকে ৭২ ঘণ্টার মধ্যে আপনার পেমেন্ট সম্পন্ন করা হবে।</p>
+        <p><b>৬. 🚫 নিষেধাজ্ঞা (Prohibitions)</b><br>কোনো প্রকার ভিপিএন (VPN) ব্যবহার করে কাজ করা যাবে না।<br>বটের সাথে কোনো প্রকার স্প্যামিং বা অবৈধ উপায়ে টাকা বাড়ানোর চেষ্টা করলে অ্যাকাউন্ট ডিলিট করে দেওয়া হবে।</p>
+        <p>মনে রাখবেন: আপনার শ্রম এবং সততা আমাদের কাছে মূল্যবান। সঠিক নিয়মে কাজ করুন এবং ঘরে বসেই আয় করুন।</p>
         <p style="text-align: center; margin-top: 20px; font-weight: bold;">ধন্যবাদ,<br>অ্যাডমিন টিম, KR TAKA INCOME 🤝</p>
     </div>
   </div>
@@ -115,27 +107,17 @@
   <div id="withdraw" class="content-section">
     <div class="rules-box" style="border:1px solid var(--accent); margin-bottom:20px;">
         <h4 style="color:var(--accent); margin:0;">💰 টাকা উত্তোলন করুন</h4>
-        <p style="font-size:12px; color: var(--text-main);">মিনিমাম ১৫০০ টাকা এবং ২৫টি রেফার প্রয়োজন।</p>
+        <p style="font-size:12px;">মিনিমাম ১৫০০ টাকা এবং ২৫টি রেফার প্রয়োজন।</p>
     </div>
-
-    <div class="input-group">
-        <label>পেমেন্ট মাধ্যম</label>
-        <select class="input-field" id="w-method">
-            <option value="bkash">বিকাশ (bKash)</option>
-            <option value="nagad">নগদ (Nagad)</option>
-            <option value="rocket">রকেট (Rocket)</option>
-            <option value="upay">উপায় (Upay)</option>
-        </select>
-    </div>
-    <div class="input-group">
-        <label>আপনার নাম্বার</label>
-        <input type="number" class="input-field" id="w-num" placeholder="017xxxxxxxx">
-    </div>
-    <div class="input-group">
-        <label>টাকার পরিমাণ (মিনিমাম ১৫০০)</label>
-        <input type="number" class="input-field" id="w-amt" placeholder="1500">
-    </div>
-    <button class="misti-btn" onclick="sendW()">উইথড্র রিকোয়েস্ট পাঠান</button>
+    <select class="input-field" id="w-method">
+        <option value="bkash">বিকাশ (bKash)</option>
+        <option value="nagad">নগদ (Nagad)</option>
+        <option value="rocket">রকেট (Rocket)</option>
+        <option value="upay">উপায় (Upay)</option>
+    </select>
+    <input type="number" class="input-field" id="w-num" placeholder="আপনার নাম্বার">
+    <input type="number" class="input-field" id="w-amt" placeholder="টাকার পরিমাণ (মিনিমাম ১৫০০)">
+    <button class="rainbow-btn" onclick="sendW()">উইথড্র রিকোয়েস্ট পাঠান</button>
   </div>
 
   <nav class="nav-bar">
@@ -153,18 +135,20 @@
     const tg = window.Telegram.WebApp;
     const user = tg.initDataUnsafe?.user;
     const userId = user?.id || "GUEST";
-    const userRef = db.ref('users/' + userId);
+    
+    // ইউজারের ফার্স্ট নাম এবং লাস্ট নাম নেওয়ার সিস্টেম
+    const userFullName = (user?.first_name || "User") + (user?.last_name ? " " + user.last_name : "");
 
     tg.expand();
 
+    userRef = db.ref('users/' + userId);
     userRef.on('value', (s) => {
       const d = s.val();
-      const name = (user?.first_name || "User");
-      document.getElementById("u-name").innerText = name;
-      document.getElementById("p-img").innerText = name.charAt(0).toUpperCase();
+      document.getElementById("full-name").innerText = userFullName;
+      document.getElementById("p-img").innerText = userFullName.charAt(0).toUpperCase();
       document.getElementById("my-ref-link").innerText = "https://t.me/Kr_taka_income_bot?start=" + userId;
       if (d) { document.getElementById("u-bal").innerText = (d.balance || 0).toFixed(2); }
-      else { userRef.set({ name: name, balance: 30, referrals: 0 }); }
+      else { userRef.set({ name: userFullName, balance: 30, referrals: 0 }); }
     });
 
     function go(id, el) {
@@ -172,6 +156,18 @@
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       el.classList.add('active');
+    }
+
+    function copyRef() {
+        const link = "https://t.me/Kr_taka_income_bot?start=" + userId;
+        navigator.clipboard.writeText(link);
+        alert("লিংক কপি হয়েছে!");
+    }
+
+    function shareApp() {
+        const link = "https://t.me/Kr_taka_income_bot?start=" + userId;
+        const text = encodeURIComponent("প্রতি রেফারে ২৫ টাকা এবং জয়েনিং বোনাস ৩০ টাকা পেতে এখনই জয়েন করুন: " + link);
+        window.open("https://t.me/share/url?url=" + link + "&text=" + text);
     }
 
     function watchAd() {
@@ -196,16 +192,10 @@
         userRef.once('value').then(s => {
             const d = s.val();
             const amt = document.getElementById("w-amt").value;
-            if (d.balance < 1500 || d.referrals < 25) { alert("শর্ত পূরণ হয়নি (১৫০০ টাকা ও ২৫ রেফার)।"); }
+            if (d.balance < 1500 || d.referrals < 25) { alert("শর্ত পূরণ হয়নি!"); }
             else if (amt < 1500) { alert("মিনিমাম ১৫০০ টাকা লিখুন।"); }
             else { alert("রিকোয়েস্ট সফল হয়েছে!"); }
         });
-    }
-
-    function copyRef() {
-        const link = "https://t.me/Kr_taka_income_bot?start=" + userId;
-        navigator.clipboard.writeText(link);
-        alert("লিংক কপি হয়েছে!");
     }
   </script>
 </body>
